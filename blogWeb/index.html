@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Share Your Stories</title>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #ec4899;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --text-dark: #1f2937;
+            --text-medium: #374151;
+            --text-light: #6b7280;
+            --text-lighter: #9ca3af;
+            --bg-white: #ffffff;
+            --bg-gray-50: #f9fafb;
+            --bg-gray-100: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-gray-50);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--bg-gray-100);
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero .btn {
+            background: var(--bg-white);
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-white);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            border-radius: 12px;
+            background: var(--bg-gray-50);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card:nth-child(1) { border-left: 4px solid var(--primary-color); }
+        .stat-card:nth-child(2) { border-left: 4px solid var(--secondary-color); }
+        .stat-card:nth-child(3) { border-left: 4px solid var(--accent-color); }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            font-weight: 600;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Blog Posts Section */
+        .posts-section {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-gray-100);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .posts-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--bg-gray-100);
+        }
+
+        .blog-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .write-blog-card {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .write-blog-card .sidebar-title {
+            color: white;
+        }
+
+        .recent-posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .recent-post {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recent-post:hover {
+            background: var(--bg-gray-50);
+        }
+
+        .recent-post-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .recent-post-content {
+            flex: 1;
+        }
+
+        .recent-post-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Write Blog Form */
+        .write-form {
+            display: none;
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .write-form.active {
+            display: block;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-gray-100);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--bg-gray-100);
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .auth-modal {
+            display: none;
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1000;
+        }
+
+        .auth-modal.active {
+            display: block;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-light);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 400px;
+        }
+
+        .notification.success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .notification.error {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .notification.show {
+            display: flex;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .write-form {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* User menu */
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-menu.active {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-blog"></i>
+                    BlogSpace
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="scrollToBlogs()">Blogs</a></li>
+                    <li><a href="#" onclick="showAbout()">About</a></li>
+                    <li><a href="#" onclick="showContact()">Contact</a></li>
+                </ul>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-secondary" onclick="showLoginModal()">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                    <button class="btn btn-primary" onclick="showSignupModal()">
+                        <i class="fas fa-user-plus"></i>
+                        Sign Up
+                    </button>
+                </div>
+                <div class="user-menu" id="userMenu">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span class="user-name" id="userName">User</span>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Share Your Stories with the World</h1>
+            <p>Join our community of passionate writers and readers. Discover amazing stories, share your experiences, and connect with like-minded people from around the globe.</p>
+            <div class="hero-cta">
+                <button class="btn" onclick="showWriteForm()">
+                    <i class="fas fa-pen-nib"></i>
+                    Start Writing
+                </button>
+                <button class="btn" onclick="scrollToBlogs()">
+                    <i class="fas fa-book-open"></i>
+                    Explore Blogs
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalBlogs">24</span>
+                    <div class="stat-label">Total Blogs</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="totalAuthors">12</span>
+                    <div class="stat-label">Active Authors</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="totalReads">8.5k</span>
+                    <div class="stat-label">Total Reads</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <h2 style="margin-bottom: 1rem; color: var(--text-dark);">Find Your Next Great Read</h2>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search blogs by title, author, or content..." id="searchInput">
+                <button class="search-btn" onclick="searchBlogs()">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Blog Posts -->
+            <section class="posts-section" id="blogsSection">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-newspaper"></i>
+                        Latest Blogs
+                    </h2>
+                    <span class="section-subtitle" id="blogCount">24 Blogs</span>
+                </div>
+                <div class="posts-grid" id="blogsContainer">
+                    <!-- Blog posts will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Write Blog Card -->
+                <div class="sidebar-card write-blog-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-plus-circle"></i>
+                        Share Your Story
+                    </h3>
+                    <p style="margin-bottom: 1.5rem; opacity: 0.9;">Have something amazing to share? Write your blog and inspire others!</p>
+                    <button class="btn btn-success" onclick="showWriteForm()" style="width: 100%;">
+                        <i class="fas fa-pen-nib"></i>
+                        Write a Blog
+                    </button>
+                </div>
+
+                <!-- Recent Posts -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-clock"></i>
+                        Recent Posts
+                    </h3>
+                    <div class="recent-posts-list" id="recentPostsList">
+                        <!-- Recent posts will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Popular Categories -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-tags"></i>
+                        Popular Topics
+                    </h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span style="background: var(--bg-gray-100); color: var(--text-medium); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer;" onclick="searchByCategory('Technology')">Technology</span>
+                        <span style="background: var(--bg-gray-100); color: var(--text-medium); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer;" onclick="searchByCategory('Travel')">Travel</span>
+                        <span style="background: var(--bg-gray-100); color: var(--text-medium); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer;" onclick="searchByCategory('Food')">Food</span>
+                        <span style="background: var(--bg-gray-100); color: var(--text-medium); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer;" onclick="searchByCategory('Lifestyle')">Lifestyle</span>
+                        <span style="background: var(--bg-gray-100); color: var(--text-medium); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer;" onclick="searchByCategory('Health')">Health</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeAllModals()"></div>
+
+    <!-- Login Modal -->
+    <div class="auth-modal" id="loginModal">
+        <div class="modal-header">
+            <h2 class="modal-title">Welcome Back!</h2>
+            <p class="modal-subtitle">Sign in to your account</p>
+        </div>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" id="signupEmail" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" id="signupPassword" required minlength="6" placeholder="At least 6 characters">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </button>
+        </form>
+        <p style="text-align: center; color: var(--text-light);">
+            Already have an account? 
+            <a href="#" onclick="showLoginModal()" style="color: var(--primary-color); font-weight: 600;">Sign in here</a>
+        </p>
+    </div>
+
+    <!-- Write Blog Form -->
+    <div class="write-form" id="writeForm">
+        <div class="form-header">
+            <h2 class="form-title">
+                <i class="fas fa-pen-nib"></i>
+                Write Your Blog
+            </h2>
+            <button class="close-btn" onclick="closeWriteForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form onsubmit="handleBlogSubmit(event)">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="blogAuthorName" required placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" id="blogAuthorEmail" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Blog Title</label>
+                <input type="text" class="form-input" id="blogTitle" required placeholder="Enter an engaging title for your blog">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <select class="form-input" id="blogCategory" required>
+                    <option value="">Select a category</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Food">Food</option>
+                    <option value="Lifestyle">Lifestyle</option>
+                    <option value="Health">Health</option>
+                    <option value="Business">Business</option>
+                    <option value="Education">Education</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Blog Content</label>
+                <textarea class="form-textarea" id="blogContent" required placeholder="Share your story, experiences, thoughts, or knowledge with the world..." rows="8"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeWriteForm()">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-paper-plane"></i>
+                    Publish Blog
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Success!</span>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let allBlogs = [];
+        let filteredBlogs = [];
+
+        // Sample blog data with images
+        const sampleBlogs = [
+            {
+                id: 1,
+                title: "The Future of Artificial Intelligence in Everyday Life",
+                author: "Sarah Johnson",
+                email: "sarah@example.com",
+                content: "Artificial Intelligence is no longer a concept confined to science fiction movies. It's here, it's real, and it's transforming our daily lives in ways we never imagined. From the moment we wake up to the time we go to bed, AI is silently working behind the scenes to make our lives easier, more efficient, and more connected. Smart home devices respond to our voice commands, recommendation algorithms suggest what we should watch next, and virtual assistants help us manage our schedules. But this is just the beginning. As we look towards the future, AI promises to revolutionize healthcare with personalized medicine, transform transportation with autonomous vehicles, and reshape education with adaptive learning systems. However, with these advances come important questions about privacy, job displacement, and the ethical implications of AI decision-making. As we stand at this technological crossroads, it's crucial that we approach AI development thoughtfully, ensuring that these powerful tools serve humanity's best interests while preserving our values and autonomy.",
+                category: "Technology",
+                date: "2024-01-28",
+                image: "🤖",
+                likes: 156,
+                views: 2341
+            },
+            {
+                id: 2,
+                title: "Hidden Gems: 10 Underrated Destinations You Must Visit",
+                author: "Michael Chen",
+                email: "michael@example.com",
+                content: "While everyone flocks to Paris, Tokyo, and New York, there are countless incredible destinations waiting to be discovered by adventurous travelers. These hidden gems offer authentic experiences, stunning landscapes, and rich cultures without the overwhelming crowds and inflated prices of popular tourist destinations. From the mystical temples of Bhutan nestled in the Himalayas to the colorful colonial architecture of Cartagena, Colombia, these places offer something truly special for those willing to venture off the beaten path. The Faroe Islands present dramatic cliffs and grass-roof houses that look like something from a fairy tale, while Estonia's medieval capital, Tallinn, offers perfectly preserved cobblestone streets and ancient city walls. Each of these destinations has its own unique charm and stories to tell. By choosing to visit these lesser-known places, travelers not only get to experience something truly unique but also contribute to sustainable tourism that benefits local communities. So pack your bags, bring your sense of adventure, and prepare to discover some of the world's best-kept secrets.",
+                category: "Travel",
+                date: "2024-01-25",
+                image: "🗺",
+                likes: 89,
+                views: 1876
+            },
+            {
+                id: 3,
+                title: "Plant-Based Cooking: Simple Recipes for Beginners",
+                author: "Emma Rodriguez",
+                email: "emma@example.com",
+                content: "Transitioning to a plant-based diet doesn't have to be overwhelming or complicated. Many people are intimidated by the idea of giving up meat and dairy, thinking they'll miss out on flavor or struggle to get proper nutrition. The truth is, plant-based cooking opens up a whole new world of delicious possibilities. Start with simple swaps: replace ground beef with lentils in your favorite pasta sauce, use cashew cream instead of heavy cream, or try jackfruit as a pulled pork substitute. The key is to focus on whole, unprocessed foods like fruits, vegetables, legumes, nuts, and grains. These ingredients are not only nutritious but also incredibly versatile. A simple Buddha bowl with quinoa, roasted vegetables, and tahini dressing can be more satisfying than any processed meal. Experiment with different spices and cooking methods – roasting brings out natural sweetness in vegetables, while marinating tofu can infuse it with incredible flavor. Remember, this journey is about progress, not perfection. Start by incorporating one or two plant-based meals into your week and gradually expand from there.",
+                category: "Food",
+                date: "2024-01-22",
+                image: "🥗",
+                likes: 234,
+                views: 3102
+            },
+            {
+                id: 4,
+                title: "Mindfulness in the Digital Age: Finding Balance",
+                author: "David Kim",
+                email: "david@example.com",
+                content: "In our hyperconnected world, finding moments of peace and mindfulness has become more challenging than ever. We're constantly bombarded with notifications, news updates, and the pressure to stay connected 24/7. This digital overwhelm is taking a toll on our mental health, relationships, and overall well-being. However, it's possible to maintain a healthy relationship with technology while still enjoying its benefits. The key is intentional usage and setting clear boundaries. Start by creating tech-free zones in your home – perhaps the bedroom or dining room – where devices are not allowed. Implement a digital sunset routine, turning off screens at least an hour before bedtime to improve sleep quality. Practice mindful consumption of social media by unfollowing accounts that make you feel negative and instead following those that inspire and educate. Consider using apps that track screen time and help you understand your digital habits. Most importantly, remember to engage with the physical world around you. Take walks without your phone, have conversations without checking notifications, and practice being fully present in the moment. Technology should enhance our lives, not control them.",
+                category: "Lifestyle",
+                date: "2024-01-20",
+                image: "🧘",
+                likes: 187,
+                views: 2567
+            },
+            {
+                id: 5,
+                title: "The Science of Sleep: Why Quality Rest Matters",
+                author: "Dr. Lisa Park",
+                email: "lisa@example.com",
+                content: "Sleep is not a luxury – it's a biological necessity that's as important as food and water for our survival and well-being. Yet, in our productivity-obsessed culture, sleep is often the first thing we sacrifice when life gets busy. This approach is not only counterproductive but also dangerous to our health. During sleep, our bodies undergo crucial repair processes: our immune system strengthens, memories consolidate, toxins are cleared from the brain, and hormones are regulated. Poor sleep quality or insufficient sleep duration has been linked to numerous health problems including obesity, diabetes, cardiovascular disease, and mental health issues. The good news is that improving sleep quality is often achievable through simple lifestyle changes. Maintain a consistent sleep schedule, even on weekends. Create a sleep-conducive environment that's cool, dark, and quiet. Avoid caffeine late in the day and limit screen time before bed, as blue light can interfere with melatonin production. Regular exercise can improve sleep quality, but avoid vigorous workouts close to bedtime. If you continue to struggle with sleep despite these changes, consider consulting a healthcare provider, as you might have an underlying sleep disorder that requires treatment.",
+                category: "Health",
+                date: "2024-01-18",
+                image: "😴",
+                likes: 312,
+                views: 4125
+            },
+            {
+                id: 6,
+                title: "Remote Work Revolution: Building a Productive Home Office",
+                author: "Alex Thompson",
+                email: "alex@example.com",
+                content: "The shift to remote work has fundamentally changed how we think about productivity, work-life balance, and office design. Creating an effective home office space is crucial for maintaining focus, motivation, and professional success while working from home. The key is to design a space that clearly separates work from personal life, even in the smallest apartments. Start by choosing a dedicated work area, even if it's just a corner of a room. Invest in a comfortable, ergonomic chair and ensure your computer screen is at eye level to prevent neck strain. Good lighting is essential – natural light is ideal, but a quality desk lamp can work wonders for your mood and productivity. Minimize distractions by keeping your workspace organized and clutter-free. Consider noise-canceling headphones if you live in a noisy environment. Establish clear boundaries with family members or roommates about your work hours and space. Take regular breaks and step away from your desk to prevent burnout. Remember, the goal is to create a space that supports your productivity while maintaining your well-being. With thoughtful planning and setup, your home office can be just as effective as any traditional workplace.",
+                category: "Business",
+                date: "2024-01-15",
+                image: "🏠",
+                likes: 145,
+                views: 1987
+            }
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            allBlogs = [...sampleBlogs];
+            filteredBlogs = [...allBlogs];
+            renderBlogs();
+            updateStats();
+            renderRecentPosts();
+        });
+
+        // Authentication functions
+        function showLoginModal() {
+            closeAllModals();
+            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function showSignupModal() {
+            closeAllModals();
+            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        function closeAllModals() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('signupModal').classList.remove('active');
+            document.getElementById('writeForm').classList.remove('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Simple validation (in real app, this would be server-side)
+            if (email && password.length >= 6) {
+                currentUser = {
+                    name: email.split('@')[0],
+                    email: email
+                };
+                
+                updateAuthUI();
+                closeAllModals();
+                showNotification('Welcome back! You are now logged in.', 'success');
+                
+                // Clear form
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+            } else {
+                showNotification('Please enter valid credentials', 'error');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (name && email && password.length >= 6) {
+                currentUser = {
+                    name: name,
+                    email: email
+                };
+                
+                updateAuthUI();
+                closeAllModals();
+                showNotification(Welcome to BlogSpace, ${name}! Your account has been created., 'success');
+                
+                // Clear form
+                document.getElementById('signupName').value = '';
+                document.getElementById('signupEmail').value = '';
+                document.getElementById('signupPassword').value = '';
+            } else {
+                showNotification('Please fill in all fields correctly', 'error');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            updateAuthUI();
+            showNotification('You have been logged out successfully', 'success');
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+
+            if (currentUser) {
+                authButtons.style.display = 'none';
+                userMenu.classList.add('active');
+                userAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
+                userName.textContent = currentUser.name;
+                
+                // Pre-fill write form if user is logged in
+                document.getElementById('blogAuthorName').value = currentUser.name;
+                document.getElementById('blogAuthorEmail').value = currentUser.email;
+            } else {
+                authButtons.style.display = 'flex';
+                userMenu.classList.remove('active');
+            }
+        }
+
+        // Blog writing functions
+        function showWriteForm() {
+            if (!currentUser) {
+                showNotification('Please login or signup to write a blog', 'error');
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById('writeForm').classList.add('active');
+        }
+
+        function closeWriteForm() {
+            document.getElementById('writeForm').classList.remove('active');
+            document.getElementById('modalOverlay').classList.remove('active');
+            
+            // Clear form
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogCategory').value = '';
+            document.getElementById('blogContent').value = '';
+        }
+
+        function handleBlogSubmit(event) {
+            event.preventDefault();
+            
+            const authorName = document.getElementById('blogAuthorName').value;
+            const authorEmail = document.getElementById('blogAuthorEmail').value;
+            const title = document.getElementById('blogTitle').value;
+            const category = document.getElementById('blogCategory').value;
+            const content = document.getElementById('blogContent').value;
+
+            if (!authorName || !authorEmail || !title || !category || !content) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (content.length < 100) {
+                showNotification('Blog content should be at least 100 characters long', 'error');
+                return;
+            }
+
+            // Create new blog object
+            const newBlog = {
+                id: Date.now(),
+                title: title,
+                author: authorName,
+                email: authorEmail,
+                content: content,
+                category: category,
+                date: new Date().toISOString().split('T')[0],
+                image: getCategoryEmoji(category),
+                likes: 0,
+                views: 0
+            };
+
+            // Add to beginning of blogs array (most recent first)
+            allBlogs.unshift(newBlog);
+            filteredBlogs = [...allBlogs];
+            
+            // Update UI
+            renderBlogs();
+            updateStats();
+            renderRecentPosts();
+            
+            // Close form and show success message
+            closeWriteForm();
+            showNotification(Your blog "${title}" has been published successfully!, 'success');
+            
+            // Scroll to the top to show the new blog
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getCategoryEmoji(category) {
+            const emojis = {
+                'Technology': '💻',
+                'Travel': '✈',
+                'Food': '🍕',
+                'Lifestyle': '🌟',
+                'Health': '🏃',
+                'Business': '💼',
+                'Education': '📚',
+                'Other': '📝'
+            };
+            return emojis[category] || '📝';
+        }
+
+        // Blog rendering functions
+        function renderBlogs() {
+            const container = document.getElementById('blogsContainer');
+            const blogCount = document.getElementById('blogCount');
+            
+            if (filteredBlogs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--text-light);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3>No blogs found</h3>
+                        <p>Try adjusting your search terms or browse all blogs</p>
+                        <button class="btn btn-primary" onclick="clearSearch()" style="margin-top: 1rem;">
+                            <i class="fas fa-refresh"></i>
+                            Show All Blogs
+                        </button>
+                    </div>
+                `;
+                blogCount.textContent = '0 Blogs';
+                return;
+            }
+
+            blogCount.textContent = ${filteredBlogs.length} Blog${filteredBlogs.length !== 1 ? 's' : ''};
+            
+            container.innerHTML = filteredBlogs.map(blog => `
+                <article class="blog-card" onclick="openBlog(${blog.id})">
+                    <div class="blog-image">
+                        ${blog.image}
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="author-avatar">${blog.author.charAt(0).toUpperCase()}</div>
+                            <span>${blog.author}</span>
+                            <span>•</span>
+                            <span>${formatDate(blog.date)}</span>
+                            <span>•</span>
+                            <span>${blog.category}</span>
+                        </div>
+                        <h3 class="blog-title">${blog.title}</h3>
+                        <p class="blog-excerpt">${blog.content.substring(0, 150)}...</p>
+                        <div class="blog-footer">
+                            <span class="blog-date">
+                                <i class="fas fa-eye"></i> ${blog.views} views
+                            </span>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); openBlog(${blog.id})">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderRecentPosts() {
+            const container = document.getElementById('recentPostsList');
+            const recentPosts = allBlogs.slice(0, 5);
+            
+            container.innerHTML = recentPosts.map(post => `
+                <div class="recent-post" onclick="openBlog(${post.id})">
+                    <div class="recent-post-image">${post.image}</div>
+                    <div class="recent-post-content">
+                        <div class="recent-post-title">${post.title}</div>
+                        <div class="recent-post-date">${formatDate(post.date)} • ${post.category}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search and filter functions
+        function searchBlogs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                filteredBlogs = [...allBlogs];
+            } else {
+                filteredBlogs = allBlogs.filter(blog => 
+                    blog.title.toLowerCase().includes(searchTerm) ||
+                    blog.author.toLowerCase().includes(searchTerm) ||
+                    blog.content.toLowerCase().includes(searchTerm) ||
+                    blog.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderBlogs();
+            scrollToBlogs();
+        }
+
+        function searchByCategory(category) {
+            document.getElementById('searchInput').value = '';
+            filteredBlogs = allBlogs.filter(blog => blog.category === category);
+            renderBlogs();
+            scrollToBlogs();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filteredBlogs = [...allBlogs];
+            renderBlogs();
+        }
+
+        // Allow search on Enter key press
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchBlogs();
+            }
+        });
+
+        // Utility functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function updateStats() {
+            document.getElementById('totalBlogs').textContent = allBlogs.length;
+            
+            // Count unique authors
+            const uniqueAuthors = new Set(allBlogs.map(blog => blog.email)).size;
+            document.getElementById('totalAuthors').textContent = uniqueAuthors;
+            
+            // Calculate total views
+            const totalViews = allBlogs.reduce((sum, blog) => sum + blog.views, 0);
+            document.getElementById('totalReads').textContent = totalViews > 1000 ? 
+                (totalViews / 1000).toFixed(1) + 'k' : totalViews;
+        }
+
+        function openBlog(blogId) {
+            const blog = allBlogs.find(b => b.id === blogId);
+            if (!blog) return;
+            
+            // Increment view count
+            blog.views++;
+            updateStats();
+            
+            // Create a simple blog view modal
+            const blogModal = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px;" onclick="this.remove()">
+                    <div style="background: white; border-radius: 16px; max-width: 800px; max-height: 90vh; overflow-y: auto; padding: 2rem;" onclick="event.stopPropagation()">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 2px solid var(--bg-gray-100); padding-bottom: 1rem;">
+                            <h1 style="color: var(--text-dark); font-size: 1.8rem; font-weight: 700;">${blog.title}</h1>
+                            <button onclick="this.closest('div').remove()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light); padding: 0.5rem; border-radius: 50%;">×</button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; color: var(--text-light);">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">${blog.author.charAt(0).toUpperCase()}</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-dark);">${blog.author}</div>
+                                <div style="font-size: 0.9rem;">${formatDate(blog.date)} • ${blog.category} • ${blog.views} views</div>
+                            </div>
+                        </div>
+                        <div style="line-height: 1.8; color: var(--text-medium); font-size: 1.1rem;">${blog.content.replace(/\n/g, '<br><br>')}</div>
+                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--bg-gray-100); text-align: center;">
+                            <button onclick="this.closest('div').remove()" class="btn btn-primary">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', blogModal);
+        }
+
+        function scrollToBlogs() {
+            document.getElementById('blogsSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.className = notification ${type} show;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Navigation functions
+        function showHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showAbout() {
+            alert('BlogSpace - A modern blogging platform where anyone can share their stories, experiences, and knowledge with the world. Join our community of writers and readers today!');
+        }
+
+        function showContact() {
+            alert('Contact Us:\n\nEmail: hello@blogspace.com\nPhone: (555) 123-4567\nAddress: 123 Blog Street, Writing City, WC 12345\n\nWe\'d love to hear from you!');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('modalOverlay')) {
+                closeAllModals();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeAllModals();
+            }
+        });
+    </script>
+</body>
+</html>>
+                <input type="email" class="form-input" id="loginEmail" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" id="loginPassword" required placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+        <p style="text-align: center; color: var(--text-light);">
+            Don't have an account?
